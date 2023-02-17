@@ -1,0 +1,29 @@
+{
+  "configurations": {
+    "flask": {
+      "adapter": "debugpy",
+      "breakpoints": {
+        "exception": {
+          "all": "N",
+          "uncaught": "N"
+        }
+      },
+      "configuration": {
+        "name": "flask",
+        "type": "python",
+        "request": "launch",
+        "module": "flask",
+        "cwd": "${workspaceRoot}",
+        "python": "${HOME}/.pyenv/shims/python",
+        "stopOnEntry": false,
+        "debugOptions": [],
+        "args": ["run", "--no-reload"],
+        "env": {
+          "FLASK_APP": "apps.app:create_app()",
+          "FLASK_DEBUG": "1"
+        },
+        "jinja": true
+      }
+    }
+  }
+}
