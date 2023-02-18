@@ -1,0 +1,19 @@
+{% extends "section09/base.html" %} {% block content %}
+<div class="jumbotron">
+  <p>
+    {% if breed %} The breed you entered is {{ breed }}. You can update it in
+    the form below: {% else %} Please enter your breed in the form below: {%
+    endif %}
+  </p>
+
+  <form
+    action="{{ url_for('section09.index') }}"
+    method="POST"
+    accept-charset="utf-8"
+  >
+    {# This hidden_tag is a CSRF security feature. #} {{ form.hidden_tag() }} {{
+    form.breed.label }} {{ form.breed(class='some-css-class') }} {{
+    form.submit() }}
+  </form>
+</div>
+{% endblock %}

@@ -10,7 +10,7 @@ section07 = Blueprint(
 
 @section07.route("/")
 def index():
-    return render_template("home.html")
+    return render_template("section07/home.html")
 
 
 @section07.route("/information")
@@ -20,7 +20,7 @@ def information():
 
 @section07.route("/puppy/<name>")
 def puppy(name):
-    return render_template("puppy.html", name=name)
+    return render_template("section07/puppy.html", name=name)
 
 
 @section07.route("/puppy_latin/<name>")
