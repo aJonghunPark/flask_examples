@@ -1,0 +1,17 @@
+{% extends "section09/base.html" %} {% block content %}
+<div class="container">
+  {# get_flashed_message() is auto sent to the template with the flash() call #}
+  {% for mess in get_flashed_messages() %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    {{ mess }} {{ session['breed'] }}
+  </div>
+  {% endfor %}
+  <form method="POST" accept-charset="utf-8">
+    {# This hidden_tag is a CSRF security feature. #} {{ form.hidden_tag() }} {{
+    form.breed.label}} {{ form.breed }} {{ form.submit() }}
+  </form>
+</div>
+{% endblock %}
