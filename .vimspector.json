@@ -19,7 +19,7 @@
         "debugOptions": [],
         "args": ["run", "--no-reload"],
         "env": {
-          "FLASK_APP": "apps.app:create_app()",
+          "FLASK_APP": "apps.app:create_app('local')",
           "FLASK_DEBUG": "1"
         },
         "jinja": true

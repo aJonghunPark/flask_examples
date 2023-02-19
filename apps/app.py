@@ -1,10 +1,23 @@
 from flask import Flask, render_template
+from flask_migrate import Migrate
+from flask_seeder import FlaskSeeder
+from flask_sqlalchemy import SQLAlchemy
+
+from apps.config import config
+
+db = SQLAlchemy()
 
 
-def create_app():
+def create_app(config_key):
+
     app = Flask(__name__)
+    app.config.from_object(config[config_key])
 
-    app.config['SECRET_KEY'] = 'mysecretkey'
+    db.init_app(app)
+    Migrate(app, db)
+
+    seeder = FlaskSeeder()
+    seeder.init_app(app, db)
 
     from apps.section07 import views as section07_views
     app.register_blueprint(section07_views.section07, url_prefix="/section07")
@@ -14,6 +27,9 @@ def create_app():
 
     from apps.section09 import views as section09_views
     app.register_blueprint(section09_views.section09, url_prefix="/section09")
+
+    from apps.section10 import views as section10_views
+    app.register_blueprint(section10_views.section10, url_prefix="/section10")
 
     app.register_error_handler(404, page_not_found)
     app.register_error_handler(500, internal_server_error)
