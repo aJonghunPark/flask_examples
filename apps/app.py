@@ -20,17 +20,17 @@ def create_app(config_key):
     seeder = FlaskSeeder()
     seeder.init_app(app, db)
 
-    from apps.section07 import views as section07_views
-    app.register_blueprint(section07_views.section07, url_prefix="/section07")
+    from apps.section07.views import section07
+    app.register_blueprint(section07, url_prefix="/section07")
 
-    from apps.section08 import views as section08_views
-    app.register_blueprint(section08_views.section08, url_prefix="/section08")
+    from apps.section08.views import section08
+    app.register_blueprint(section08, url_prefix="/section08")
 
-    from apps.section09 import views as section09_views
-    app.register_blueprint(section09_views.section09, url_prefix="/section09")
+    from apps.section09.views import section09
+    app.register_blueprint(section09, url_prefix="/section09")
 
-    from apps.section10 import views as section10_views
-    app.register_blueprint(section10_views.section10, url_prefix="/section10")
+    from apps.section10.views import section10
+    app.register_blueprint(section10, url_prefix="/section10")
 
     app.register_error_handler(404, page_not_found)
     app.register_error_handler(500, internal_server_error)

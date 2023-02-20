@@ -6,14 +6,14 @@ from flask import Blueprint, redirect, render_template, url_for
 section10 = Blueprint(
     "section10",
     __name__,
-    template_folder="templates",
+    template_folder="templates/section10",
     static_folder="static",
 )
 
 
 @section10.route("/")
 def index():
-    return render_template('section10/home.html')
+    return render_template('home.html')
 
 
 @section10.route("/add", methods=['GET', 'POST'])
@@ -30,14 +30,14 @@ def add_pup():
 
         return redirect(url_for("section10.list_pup"))
 
-    return render_template("section10/add.html", form=form)
+    return render_template("add.html", form=form)
 
 
 @section10.route("/list")
 def list_pup():
 
     puppies = Puppy.query.all()
-    return render_template("section10/list.html", puppies=puppies)
+    return render_template("list.html", puppies=puppies)
 
 
 @section10.route("/delete", methods=["GET", "POST"])
@@ -53,7 +53,7 @@ def del_pup():
         db.session.commit()
 
         return redirect(url_for("section10.list_pup"))
-    return render_template("section10/delete.html", form=form)
+    return render_template("delete.html", form=form)
 
 
 @section10.route("/add_owner", methods=["GET", "POST"])
@@ -71,7 +71,7 @@ def add_owner():
 
         return redirect(url_for("section10.list_pup"))
 
-    return render_template("section10/add_owner.html", form=form)
+    return render_template("add_owner.html", form=form)
 
 
 @section10.route("/sql")
