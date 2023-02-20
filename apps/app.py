@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from flask_debugtoolbar import DebugToolbarExtension
 from flask_migrate import Migrate
 from flask_seeder import FlaskSeeder
 from flask_sqlalchemy import SQLAlchemy
@@ -33,6 +34,9 @@ def create_app(config_key):
 
     app.register_error_handler(404, page_not_found)
     app.register_error_handler(500, internal_server_error)
+
+    app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False
+    DebugToolbarExtension(app)
 
     return app
 
