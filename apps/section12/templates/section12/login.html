@@ -1,0 +1,6 @@
+{% extends "section12/base.html" %} {% block content %}
+<form method="POST" accept-charset="utf-8">
+  {{ form.hidden_tag() }} {{ form.email.label }} {{ form.email() }} {{
+  form.password.label }} {{ form.password() }} {{ form.submit() }}
+</form>
+{% endblock %}
