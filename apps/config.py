@@ -8,6 +8,8 @@ password = os.environ.get("PASSWORD")
 hostname = os.environ.get("HOSTNAME")
 database = os.environ.get("DATABASE")
 db_url = f"mysql+mysqldb://{username}:{password}@{hostname}/{database}"
+oauth_google_client_id = os.environ.get("OAUTH_GOOGLE_CLIENT_ID")
+oauth_google_client_secret = os.environ.get("OAUTH_GOOGLE_CLIENT_SECRET")
 
 
 class BaseConfig:
@@ -19,6 +21,8 @@ class LocalConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = db_url
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = True
+    GOOGLE_CLIENT_ID = oauth_google_client_id
+    GOOGLE_CLIENT_SECRET = oauth_google_client_secret
 
 
 # BaseConfigクラスを継承してTestingConfigクラスを作成する

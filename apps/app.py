@@ -1,4 +1,7 @@
+import os
+
 from flask import Flask
+from flask_dance.contrib.google import make_google_blueprint
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_login import LoginManager
 from flask_migrate import Migrate
@@ -11,10 +14,15 @@ db = SQLAlchemy()
 
 login_manager = LoginManager()
 
+os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+os.environ["OAUTHLIB_RELAX_TOKEN_SCOPE"] = "1"
+
 
 def create_app(config_key):
     app = Flask(__name__)
     app.config.from_object(config[config_key])
+    print(app.config["GOOGLE_CLIENT_ID"])
+    print(app.config["GOOGLE_CLIENT_SECRET"])
 
     db.init_app(app)
     Migrate(app, db)
@@ -44,6 +52,19 @@ def create_app(config_key):
     from apps.section12.views import section12
 
     app.register_blueprint(section12, url_prefix="/section12")
+
+    oauth_google = make_google_blueprint(
+        client_id=app.config["GOOGLE_CLIENT_ID"],
+        client_secret=app.config["GOOGLE_CLIENT_SECRET"],
+        offline=True,
+        scope=["profile", "email"],
+        redirect_url="/oauth/welcome",
+    )
+    app.register_blueprint(oauth_google, url_prefix="/oauth/login")
+
+    from apps.oauth.views import oauth
+
+    app.register_blueprint(oauth, url_prefix="/oauth")
 
     # app.register_error_handler(404, page_not_found)
     # app.register_error_handler(500, internal_server_error)
