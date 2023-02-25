@@ -1,10 +1,12 @@
-from apps.app import db
+from apps.app import db, login_manager
 from apps.section12.forms import LoginForm, RegistrationForm
 from apps.section12.models import User
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_bcrypt import Bcrypt
 from flask_login import login_required, login_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
+
+login_manager.login_view = "section12.login"
 
 section12 = Blueprint(
     "section12",

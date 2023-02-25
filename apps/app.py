@@ -14,15 +14,15 @@ db = SQLAlchemy()
 
 login_manager = LoginManager()
 
-os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
-os.environ["OAUTHLIB_RELAX_TOKEN_SCOPE"] = "1"
+# os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+# os.environ["OAUTHLIB_RELAX_TOKEN_SCOPE"] = "1"
 
 
 def create_app(config_key):
     app = Flask(__name__)
     app.config.from_object(config[config_key])
-    print(app.config["GOOGLE_CLIENT_ID"])
-    print(app.config["GOOGLE_CLIENT_SECRET"])
+    # print(app.config["GOOGLE_CLIENT_ID"])
+    # print(app.config["GOOGLE_CLIENT_SECRET"])
 
     db.init_app(app)
     Migrate(app, db)
@@ -31,7 +31,7 @@ def create_app(config_key):
     seeder.init_app(app, db)
 
     login_manager.init_app(app)
-    login_manager.login_view = "section12.login"
+    # login_manager.login_view = "section12.login"
 
     from apps.section07.views import section07
 
@@ -65,6 +65,10 @@ def create_app(config_key):
     from apps.oauth.views import oauth
 
     app.register_blueprint(oauth, url_prefix="/oauth")
+
+    from apps.blog.views import blog
+
+    app.register_blueprint(blog, url_prefix="/blog")
 
     # app.register_error_handler(404, page_not_found)
     # app.register_error_handler(500, internal_server_error)

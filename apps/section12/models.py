@@ -15,6 +15,11 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(64), unique=True, index=True)
     username = db.Column(db.String(64), unique=True, index=True)
     password_hash = db.Column(db.String(128))
+    profile_image = db.Column(
+        db.String(64), nullable=False, server_default="default_profile.png"
+    )
+
+    posts = db.relationship("Post", backref="author", lazy=True)
 
     def __init__(self, email, username, password):
         self.email = email
@@ -23,3 +28,6 @@ class User(db.Model, UserMixin):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+    def __repr__(self):
+        return f"Username: {self.username}"
