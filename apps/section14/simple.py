@@ -1,8 +1,9 @@
+# https://rajansahu713.medium.com/hands-on-guide-to-restful-api-using-flask-python-16270f866ffe
 from flask import Blueprint
 from flask_restful import Api, Resource
 
-section14 = Blueprint("section14", __name__)
-api = Api(section14)
+simple = Blueprint("simple", __name__)
+api = Api(simple)
 
 
 class HelloWorld(Resource):

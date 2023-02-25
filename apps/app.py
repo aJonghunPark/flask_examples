@@ -70,9 +70,13 @@ def create_app(config_key):
 
     app.register_blueprint(blog, url_prefix="/blog")
 
-    from apps.section14.views import section14
+    from apps.section14.simple import simple
 
-    app.register_blueprint(section14, url_prefix="/api")
+    app.register_blueprint(simple, url_prefix="/api")
+
+    from apps.section14.crud import crud
+
+    app.register_blueprint(crud, url_prefix="/api")
 
     # app.register_error_handler(404, page_not_found)
     # app.register_error_handler(500, internal_server_error)
