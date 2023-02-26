@@ -2,9 +2,8 @@ from apps.app import db
 
 
 class Puppy(db.Model):
-
     # MANUAL TABLE NAME CHOICE!
-    __tablename__ = 'puppies'
+    __tablename__ = "puppies"
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120))
@@ -13,13 +12,13 @@ class Puppy(db.Model):
 
     # ONE TO MANY
     # Puppy to Many Toys...
-    toys = db.relationship('Toy', backref='puppy', lazy='dynamic')
+    toys = db.relationship("Toy", backref="puppy", lazy="dynamic")
 
     # ONE TO ONE
     # Puppy to One Owner
-    owner = db.relationship('Owner', backref='puppy', uselist=False)
+    owner = db.relationship("Owner", backref="puppy", uselist=False)
 
-    def __init__(self, name, age=0, breed=''):
+    def __init__(self, name, age=0, breed=""):
         self.name = name
         self.age = age
         self.breed = breed
@@ -35,14 +34,16 @@ class Puppy(db.Model):
         for toy in self.toys:
             print(toy.item_name)
 
+    def json(self):
+        return {"name": self.name, "breed": self.breed}
+
 
 class Toy(db.Model):
-
-    __tablename__ = 'toys'
+    __tablename__ = "toys"
 
     id = db.Column(db.Integer, primary_key=True)
     item_name = db.Column(db.String(120))
-    puppy_id = db.Column(db.Integer, db.ForeignKey('puppies.id'))
+    puppy_id = db.Column(db.Integer, db.ForeignKey("puppies.id"))
 
     def __init__(self, item_name, puppy_id):
         self.item_name = item_name
@@ -50,12 +51,11 @@ class Toy(db.Model):
 
 
 class Owner(db.Model):
-
-    __tablename__ = 'owners'
+    __tablename__ = "owners"
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120))
-    puppy_id = db.Column(db.Integer, db.ForeignKey('puppies.id'))
+    puppy_id = db.Column(db.Integer, db.ForeignKey("puppies.id"))
 
     def __init__(self, name, puppy_id):
         self.name = name
