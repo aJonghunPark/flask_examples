@@ -1,4 +1,5 @@
 from flask import Blueprint
+from flask_jwt import jwt_required
 from flask_restful import Api, Resource
 
 crud = Blueprint("crud", __name__)
@@ -37,6 +38,7 @@ class PuppyNames(Resource):
 
 
 class AllNames(Resource):
+    @jwt_required()
     def get(self):
         # return all the puppies :)
         return {"puppies": puppies}

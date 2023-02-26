@@ -3,12 +3,14 @@ import os
 from flask import Flask
 from flask_dance.contrib.google import make_google_blueprint
 from flask_debugtoolbar import DebugToolbarExtension
+from flask_jwt import JWT
 from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_seeder import FlaskSeeder
 from flask_sqlalchemy import SQLAlchemy
 
 from apps.config import config
+from apps.section14.secure_check import authenticate, identity
 
 db = SQLAlchemy()
 
@@ -23,6 +25,7 @@ def create_app(config_key):
     app.config.from_object(config[config_key])
     # print(app.config["GOOGLE_CLIENT_ID"])
     # print(app.config["GOOGLE_CLIENT_SECRET"])
+    # print(app.config["SECRET_KEY"])
 
     db.init_app(app)
     Migrate(app, db)
@@ -32,6 +35,8 @@ def create_app(config_key):
 
     login_manager.init_app(app)
     # login_manager.login_view = "section12.login"
+
+    JWT(app, authenticate, identity)
 
     from apps.section07.views import section07
 
