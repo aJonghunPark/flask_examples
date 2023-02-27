@@ -23,6 +23,8 @@ class LocalConfig(BaseConfig):
     SQLALCHEMY_ECHO = True
     GOOGLE_CLIENT_ID = oauth_google_client_id
     GOOGLE_CLIENT_SECRET = oauth_google_client_secret
+    PUBLIC_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY")
+    SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
 
 
 # BaseConfigクラスを継承してTestingConfigクラスを作成する

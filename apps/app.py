@@ -27,6 +27,9 @@ def create_app(config_key):
     # print(app.config["GOOGLE_CLIENT_SECRET"])
     # print(app.config["SECRET_KEY"])
 
+    # apps.app
+    print(f"__name__: {__name__}")
+
     db.init_app(app)
     Migrate(app, db)
 
