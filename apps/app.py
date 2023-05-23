@@ -90,6 +90,10 @@ def create_app(config_key):
 
     app.register_blueprint(section16, url_prefix="/section16")
 
+    from apps.tdd_todoapp.views import tdd_todoapp
+
+    app.register_blueprint(tdd_todoapp, url_prefix="/tdd")
+
     # app.register_error_handler(404, page_not_found)
     # app.register_error_handler(500, internal_server_error)
 
